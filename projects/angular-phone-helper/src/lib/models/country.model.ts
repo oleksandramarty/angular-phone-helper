@@ -1,20 +1,19 @@
+import {IPhoneModel} from "./phone.model";
+
 export interface ICountryListModel {
-  [key: string]: IPhoneItemModel,
-  international: IPhoneItemModel,
-  usa: IPhoneItemModel,
-  can: IPhoneItemModel,
-  gbr: IPhoneItemModel,
-  fra: IPhoneItemModel,
-  deu: IPhoneItemModel,
+  [key: string]: ICountryModel,
+  international: ICountryModel,
+  usa: ICountryModel,
+  can: ICountryModel,
+  gbr: ICountryModel,
+  fra: ICountryModel,
+  deu: ICountryModel,
 }
 
 export interface ICountryModel {
   id: number | null;
   name: string | null;
-  code: string | null;
-  codeDigit: string | null;
-  format: string | null;
   isoCode: string | null;
   isoCodeAlpha2: string | null;
-  pattern: string | null;
+  phone: IPhoneModel;
 }
