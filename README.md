@@ -6,7 +6,7 @@ AngularPhoneHelperModule.forRoot({
 })
 ```
 
-## Usage `PhoneFormatPipe` in `ts`
+## Usage `PhoneFormatService` in `ts`
 ```ts
 import {PhoneFormatService} from "angular-phone-helper";
 
