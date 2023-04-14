@@ -7,7 +7,7 @@ import {defaultConfig} from "./models/config.model";
 import {ICountryPhoneListFormattedMock} from "./models/country-phone.mock.model";
 import {countriesDictionary} from "./helper/data.helper";
 
-describe('AngularPhoneHelperService', () => {
+describe('PhoneFormatService', () => {
   let service: PhoneFormatService;
 
   beforeEach(() => {

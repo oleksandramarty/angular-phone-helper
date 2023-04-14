@@ -3,7 +3,7 @@ import {PhoneFormatPipe} from "./pipes/phone-format.pipe";
 import {CommonModule} from "@angular/common";
 import {ApiConfig} from "./models/config.model";
 import {API_CONFIG_TOKEN} from "./di";
-import {AngularPhoneHelperService} from "./angular-phone-helper.service";
+import {PhoneFormatService} from "./phone-format.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ export class AngularPhoneHelperModule {
       ngModule: AngularPhoneHelperModule,
       providers: [
         { provide: API_CONFIG_TOKEN, useValue: config },
-        AngularPhoneHelperService,
+        PhoneFormatPipe,
+        PhoneFormatService,
       ],
     }
   }

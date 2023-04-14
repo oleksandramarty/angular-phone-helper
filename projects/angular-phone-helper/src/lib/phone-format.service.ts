@@ -4,12 +4,11 @@ import {ApiConfig} from "./models/config.model";
 import {PhoneFormatPipe} from "./pipes/phone-format.pipe";
 import {countriesDictionary} from "./helper/data.helper";
 import {ICountryModel} from "./models/country.model";
-import {removeNonDigits} from "./helper/phone.helper";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AngularPhoneHelperService {
+export class PhoneFormatService {
 
   constructor(
     @Optional() @Inject(API_CONFIG_TOKEN) private readonly config: ApiConfig | null,

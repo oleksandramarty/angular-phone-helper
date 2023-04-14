@@ -1,25 +1,48 @@
+## Setting up in `module's imports`
+```ts
+AngularPhoneHelperModule.forRoot({
+    defaultCountryIsoCode: countriesDictionary.international.isoCode, // Country ISO code
+    defaultWithCountryCode: true, // Add prefix by default
+})
+```
 
-## Usage in `ts`
+## Usage `PhoneFormatPipe` in `ts`
+```ts
+import {PhoneFormatService} from "angular-phone-helper";
+
+...
+
+constructor(private readonly phoneFormatService: PhoneFormatService, private apiService: ApiMovieService) {
+  this.phoneFormatService.isInternationalFormatted('+3 123 456 7890'); // true
+  this.phoneFormatService.isInternationalFormatted('+4811231234567890'); // false
+  this.phoneFormatService.isInternationalFormatted('+481 2312 67890'); // false
+  this.phoneFormatService.isUnitedStatesFormatted('(123) 456-7890'); // true
+  this.phoneFormatService.isUnitedStatesFormatted('+1 (123) 456-7890'); // true
+  this.phoneFormatService.isUnitedStatesFormatted('+2 (123) 456-7890'); // false
+}
+```
+
+## Usage `PhoneFormatPipe` in `ts`
 ```ts
 import {countriesDictionary, PhoneFormatPipe} from "angular-phone-helper";
 
 ...
 
 constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
-  this.phoneFormatPipe.transform('1234567890'); // 
-  this.phoneFormatPipe.transform('1234567890', { iso: 'USA', prefix: true });
-  this.phoneFormatPipe.transform('1234567890', { prefix: true });
-  this.phoneFormatPipe.transform('1234567890', { iso: countriesDictionary.usa.isoCode, prefix: true });
+  this.phoneFormatPipe.transform('31234567890'); // +3 123 456 7890
+  this.phoneFormatPipe.transform('1234567890', { iso: 'USA', prefix: true }); // +1 (123) 456-7890
+  this.phoneFormatPipe.transform('1234567890', { prefix: true }); // 1234567890 (wrong length)
+  this.phoneFormatPipe.transform('1234567890', { iso: countriesDictionary.usa.isoCode }); // +1 (123) 456-7890
+  this.phoneFormatPipe.transform('1234567890', { iso: countriesDictionary.usa.isoCode, prefix: false }) // (123) 456-7890
 }
 ```
 
-## Usage in `html`
+## Usage `PhoneFormatPipe` in `html`
 ```ts
 {{ '1234567890' | phoneFormat }}
 {{ '1234567890' | phoneFormat: { iso: 'USA', prefix: true } }}
 {{ '1234567890' | phoneFormat: { prefix: true } }}
 ```
-
 
 ## Examples
 | Phone               | Formatted Phone     | Description                    |
@@ -66,30 +89,13 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 | `11234567890`       | `+1 123 456 7890`   | international with prefix      |
 | `11234567890`       | `+1 123 456 7890`   | international with prefix      |
 
-# AngularPhoneHelper
+## Supported countries (in progress...)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+| Country ISO code | Phone prefix | Phone format      |
+|------------------|--------------|-------------------|
+| `International`  | ` `          | `+X XXX XXX XXXX` |
+| `USA`            | `+1`         | `(XXX) XXX-XXXX`  |
+| `CAN`            | `+1`         | `(XXX) XXX-XXXX`  |
+| `GBR`            | `+1`         | `0XX XXXX XXXX`   |
+| `FRA`            | `+1`         | `0X XX XX XX XX`  |
+| `DEU`            | `+1`         | `0XXX XXXXXXX`    |

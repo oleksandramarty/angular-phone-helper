@@ -33,7 +33,7 @@ export class PhoneFormatPipe implements PipeTransform {
 
     // Find country by code, if it does not exist - chose international which is first
     const countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode);
-  console.log(countryHelper)
+
     // Check if country code is needed
     withCountryCode = checkIsItWithCountryCode(withCountryCode, this.config);
 
