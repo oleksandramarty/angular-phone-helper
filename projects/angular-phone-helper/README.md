@@ -1,24 +1,101 @@
-# AngularPhoneHelper
+## Setting up in `module's imports`
+```ts
+AngularPhoneHelperModule.forRoot({
+  defaultCountryIsoCode: countriesDictionary.international.isoCode, // Country ISO code
+  defaultWithCountryCode: true, // Add prefix by default
+})
+```
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.5.
+## Usage `PhoneFormatService` in `ts`
+```ts
+import {PhoneFormatService} from "angular-phone-helper";
 
-## Code scaffolding
+...
 
-Run `ng generate component component-name --project angular-phone-helper` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project angular-phone-helper`.
-> Note: Don't forget to add `--project angular-phone-helper` or else it will be added to the default project in your `angular.json` file. 
+constructor(private readonly phoneFormatService: PhoneFormatService) {
+  this.phoneFormatService.isInternationalFormatted('+3 123 456 7890'); // true
+  this.phoneFormatService.isInternationalFormatted('+4811231234567890'); // false
+  this.phoneFormatService.isInternationalFormatted('+481 2312 67890'); // false
+  this.phoneFormatService.isUnitedStatesFormatted('(123) 456-7890'); // true
+  this.phoneFormatService.isUnitedStatesFormatted('+1 (123) 456-7890'); // true
+  this.phoneFormatService.isUnitedStatesFormatted('+2 (123) 456-7890'); // false
+}
+```
 
-## Build
+## Usage `PhoneFormatPipe` in `ts`
+```ts
+import {countriesDictionary, PhoneFormatPipe} from "angular-phone-helper";
 
-Run `ng build angular-phone-helper` to build the project. The build artifacts will be stored in the `dist/` directory.
+...
 
-## Publishing
+constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
+  this.phoneFormatPipe.transform('31234567890'); // +3 123 456 7890
+  this.phoneFormatPipe.transform('1234567890', { iso: 'USA', prefix: true }); // +1 (123) 456-7890
+  this.phoneFormatPipe.transform('1234567890', { prefix: true }); // 1234567890 (wrong length)
+  this.phoneFormatPipe.transform('1234567890', { iso: countriesDictionary.usa.isoCode }); // +1 (123) 456-7890
+  this.phoneFormatPipe.transform('1234567890', { iso: countriesDictionary.usa.isoCode, prefix: false }) // (123) 456-7890
+}
+```
 
-After building your library with `ng build angular-phone-helper`, go to the dist folder `cd dist/angular-phone-helper` and run `npm publish`.
+## Usage `PhoneFormatPipe` in `html`
+```ts
+{{ '31234567890' | phoneFormat }} <!-- +3 123 456 7890 -->
+{{ '1234567890' | phoneFormat: { iso: 'USA', prefix: true } }} // <!-- +1 (123) 456-7890 -->
+{{ '41234567890' | phoneFormat: { prefix: true } }} // <!-- +4 123 456 7890 -->
+```
 
-## Running unit tests
+## Examples
+| Phone               | Formatted Phone     | Description                    |
+|---------------------|---------------------|--------------------------------|
+| `+1234567890`       | `+1 (123) 456-7890` | USA with prefix                |
+| `123456789`         | `123456789`         | USA with prefix (wrong length) |
+| `(123) 456-7890`    | `+1 (123) 456-7890` | USA with prefix                |
+| `+1 (123) 456-7890` | `+1 (123) 456-7890` | USA with prefix                |
+| `1234567890`        | `+1 (123) 456-7890` | USA with prefix                |
+| `1234567890`        | `+1 (123) 456-7890` | USA with prefix                |
+| `1234567890`        | `(123) 456-7890`    | USA without prefix             |
+| `1234567890`        | `+1 (123) 456-7890` | CAN with prefix                |
+| `1234567890`        | `+44 12 3456 7890`  | GBR with prefix                |
+| `01234567890`       | `+44 12 3456 7890`  | GBR with prefix                |
+| `1234567890`        | `012 3456 7890`     | GBR without prefix             |
+| `01234567890`       | `012 3456 7890`     | GBR without prefix             |
+| `123456789`         | `+33 1 23 45 67 89` | FRA with prefix                |
+| `0123456789`        | `+33 1 23 45 67 89` | FRA with prefix                |
+| `123456789`         | `01 23 45 67 89`    | FRA without prefix             |
+| `0123456789`        | `01 23 45 67 89`    | FRA without prefix             |
+| `1234567890`        | `+49 123 4567890`   | DEU with prefix                |
+| `01234567890`       | `+49 123 4567890`   | DEU with prefix                |
+| `1234567890`        | `0123 4567890`      | DEU without prefix             |
+| `01234567890`       | `0123 4567890`      | DEU without prefix             |
+| `+44 1234567890`    | `+44 12 3456 7890`  | GBR with prefix                |
+| `+44 01234567890`   | `+44 12 3456 7890`  | GBR with prefix                |
+| `+44 1234567890`    | `012 3456 7890`     | GBR without prefix             |
+| `+44 01234567890`   | `012 3456 7890`     | GBR without prefix             |
+| `+33123456789`      | `+33 1 23 45 67 89` | FRA with prefix                |
+| `+330123456789`     | `+33 1 23 45 67 89` | FRA with prefix                |
+| `+33123456789`      | `01 23 45 67 89`    | FRA without prefix             |
+| `+330123456789`     | `01 23 45 67 89`    | FRA without prefix             |
+| `+491234567890`     | `+49 123 4567890`   | DEU with prefix                |
+| `+4901234567890`    | `+49 123 4567890`   | DEU with prefix                |
+| `+491234567890`     | `0123 4567890`      | DEU without prefix             |
+| `+4901234567890`    | `0123 4567890`      | DEU without prefix             |
+| `+481234567890`     | `+49 123 4567890`   | DEU with prefix                |
+| `+4801234567890`    | `0123 4567890`      | DEU without prefix             |
+| `+4811231234567890` | `+3 123 456 7890`   | international with prefix      |
+| `null`              | ` `                 | international with prefix      |
+| `123`               | `123`               | international with prefix      |
+| ` `                 | ` `                 | international with prefix      |
+| ` abc`              | ` `                 | international with prefix      |
+| `11234567890`       | `+1 123 456 7890`   | international with prefix      |
+| `11234567890`       | `+1 123 456 7890`   | international with prefix      |
 
-Run `ng test angular-phone-helper` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Supported countries (in progress...)
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+| Country ISO code | Phone prefix | Phone format      |
+|------------------|--------------|-------------------|
+| `International`  | ` `          | `+X XXX XXX XXXX` |
+| `USA`            | `+1`         | `(XXX) XXX-XXXX`  |
+| `CAN`            | `+1`         | `(XXX) XXX-XXXX`  |
+| `GBR`            | `+44`        | `0XX XXXX XXXX`   |
+| `FRA`            | `+33`        | `0X XX XX XX XX`  |
+| `DEU`            | `+49`        | `0XXX XXXXXXX`    |

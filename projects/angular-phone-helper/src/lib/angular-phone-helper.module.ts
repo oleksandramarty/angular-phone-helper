@@ -1,16 +1,31 @@
-import { NgModule } from '@angular/core';
-import { AngularPhoneHelperComponent } from './angular-phone-helper.component';
-
-
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {PhoneFormatPipe} from "./pipes/phone-format.pipe";
+import {CommonModule} from "@angular/common";
+import {ApiConfig} from "./models/config.model";
+import {API_CONFIG_TOKEN} from "./di";
+import {PhoneFormatService} from "./phone-format.service";
 
 @NgModule({
   declarations: [
-    AngularPhoneHelperComponent
+    PhoneFormatPipe,
   ],
   imports: [
+    CommonModule,
   ],
   exports: [
-    AngularPhoneHelperComponent
+    PhoneFormatPipe,
   ]
 })
-export class AngularPhoneHelperModule { }
+
+export class AngularPhoneHelperModule {
+  static forRoot(config: ApiConfig): ModuleWithProviders<AngularPhoneHelperModule> {
+    return {
+      ngModule: AngularPhoneHelperModule,
+      providers: [
+        { provide: API_CONFIG_TOKEN, useValue: config },
+        PhoneFormatPipe,
+        PhoneFormatService,
+      ],
+    }
+  }
+}
