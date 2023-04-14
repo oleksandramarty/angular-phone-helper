@@ -39,9 +39,9 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 
 ## Usage `PhoneFormatPipe` in `html`
 ```ts
-{{ '1234567890' | phoneFormat }}
-{{ '1234567890' | phoneFormat: { iso: 'USA', prefix: true } }}
-{{ '1234567890' | phoneFormat: { prefix: true } }}
+{{ '31234567890' | phoneFormat }} <!-- +3 123 456 7890 -->
+{{ '1234567890' | phoneFormat: { iso: 'USA', prefix: true } }} // <!-- +1 (123) 456-7890 -->
+{{ '41234567890' | phoneFormat: { prefix: true } }} // <!-- +4 123 456 7890 -->
 ```
 
 ## Examples
