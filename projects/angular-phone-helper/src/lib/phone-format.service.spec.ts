@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AngularPhoneHelperService } from './angular-phone-helper.service';
+import { PhoneFormatService } from './phone-format.service';
 import {PhoneFormatPipe} from "./pipes/phone-format.pipe";
 import {API_CONFIG_TOKEN} from "./di";
 import {defaultConfig} from "./models/config.model";
@@ -8,17 +8,17 @@ import {ICountryPhoneListFormattedMock} from "./models/country-phone.mock.model"
 import {countriesDictionary} from "./helper/data.helper";
 
 describe('AngularPhoneHelperService', () => {
-  let service: AngularPhoneHelperService;
+  let service: PhoneFormatService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         PhoneFormatPipe,
-        AngularPhoneHelperService,
+        PhoneFormatService,
         { provide: API_CONFIG_TOKEN, useValue: defaultConfig }
       ]
     });
-    service = TestBed.inject(AngularPhoneHelperService);
+    service = TestBed.inject(PhoneFormatService);
   });
 
   it('should be created', () => {
