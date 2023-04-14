@@ -96,6 +96,6 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 | `International`  | ` `          | `+X XXX XXX XXXX` |
 | `USA`            | `+1`         | `(XXX) XXX-XXXX`  |
 | `CAN`            | `+1`         | `(XXX) XXX-XXXX`  |
-| `GBR`            | `+1`         | `0XX XXXX XXXX`   |
-| `FRA`            | `+1`         | `0X XX XX XX XX`  |
-| `DEU`            | `+1`         | `0XXX XXXXXXX`    |
+| `GBR`            | `+44`        | `0XX XXXX XXXX`   |
+| `FRA`            | `+33`        | `0X XX XX XX XX`  |
+| `DEU`            | `+49`        | `0XXX XXXXXXX`    |
