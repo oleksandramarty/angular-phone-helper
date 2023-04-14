@@ -12,7 +12,7 @@ import {PhoneFormatService} from "angular-phone-helper";
 
 ...
 
-constructor(private readonly phoneFormatService: PhoneFormatService, private apiService: ApiMovieService) {
+constructor(private readonly phoneFormatService: PhoneFormatService) {
   this.phoneFormatService.isInternationalFormatted('+3 123 456 7890'); // true
   this.phoneFormatService.isInternationalFormatted('+4811231234567890'); // false
   this.phoneFormatService.isInternationalFormatted('+481 2312 67890'); // false
