@@ -4,6 +4,6 @@ export interface ApiConfig {
 }
 
 export const defaultConfig = {
-  defaultCountryIsoCode: 'US',
+  defaultCountryIsoCode: '',
   defaultWithCountryCode: true,
 }

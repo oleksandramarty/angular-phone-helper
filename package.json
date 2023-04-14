@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-library": "ng build oleksandr-amarty-api-sdk",
+    "build-library": "ng build angular-phone-helper",
     "pack-lib": "cd dist/angular-phone-helper && npm pack"
   },
   "private": true,

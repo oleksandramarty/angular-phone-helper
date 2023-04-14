@@ -40,8 +40,8 @@ export class AngularPhoneHelperService {
       return false;
     }
 
-    const phoneWithoutCode = this.phoneFormatPipe.transform(phone, countryHelper.isoCode, false);
-    const phoneWithCode = this.phoneFormatPipe.transform(phone, countryHelper.isoCode, true);
+    const phoneWithoutCode = this.phoneFormatPipe.transform(phone, { iso: countryHelper.isoCode, prefix: false });
+    const phoneWithCode = this.phoneFormatPipe.transform(phone, { iso: countryHelper.isoCode, prefix: true });
 
     return phone === phoneWithoutCode || phone === phoneWithCode;
   }

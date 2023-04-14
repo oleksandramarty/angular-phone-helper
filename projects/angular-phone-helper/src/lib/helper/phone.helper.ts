@@ -9,9 +9,13 @@ export function removeNonDigits(str: string | null): string | null {
   return str.replace(/\D/g, '');
 }
 
-export function getCountryHelperByCountryCode(countryCode?: string | null | undefined): ICountryModel {
+export function getCountryHelperByCountryCode(countryCode?: string | null | undefined, defaultCountryIsoCode?: string | null | undefined): ICountryModel {
   if (!countryCode) {
-    return countriesDictionary.international;
+    if (!defaultCountryIsoCode) {
+      return countriesDictionary.international;
+    } else {
+      return countriesDictionary[defaultCountryIsoCode.toLowerCase()] ?? countriesDictionary.international;
+    }
   }
   const countryCodeNormalized = countryCode.toUpperCase();
 

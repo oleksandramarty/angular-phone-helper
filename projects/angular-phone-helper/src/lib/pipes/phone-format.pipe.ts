@@ -1,4 +1,4 @@
-import {Inject, Pipe, PipeTransform} from '@angular/core';
+import {Inject, Optional, Pipe, PipeTransform} from '@angular/core';
 import {
   checkIsItWithCountryCode,
   convertToFormattedCountryPhone,
@@ -6,19 +6,25 @@ import {
   removeNonDigits
 } from "../helper/phone.helper";
 import {API_CONFIG_TOKEN} from "../di";
-import {ApiConfig} from "../models/config.model";
+import {ApiConfig, defaultConfig} from "../models/config.model";
+import {IPhonePipeOptions} from "../models/phone.model";
 
 @Pipe({
   name: 'phoneFormat'
 })
 export class PhoneFormatPipe implements PipeTransform {
 
-  constructor(@Inject(API_CONFIG_TOKEN) private config?: ApiConfig | null) {}
+  constructor(@Optional() @Inject(API_CONFIG_TOKEN) private config?: ApiConfig | null) {}
 
   transform(
-    phone: string | null | undefined,
-    countryIsoCode?: string | null | undefined,
-    withCountryCode?: boolean | null | undefined): string {
+    phone: string | null | undefined, options?: IPhonePipeOptions | null): string {
+    let countryIsoCode: string | null | undefined = this.config?.defaultCountryIsoCode ?? defaultConfig.defaultCountryIsoCode;
+    let withCountryCode: boolean | null | undefined = this.config?.defaultWithCountryCode ?? defaultConfig.defaultWithCountryCode;
+
+    if (options) {
+      countryIsoCode = options.iso ?? countryIsoCode;
+      withCountryCode = options.prefix ?? withCountryCode;
+    }
     if (!phone) {
       return '';
     }
@@ -26,8 +32,8 @@ export class PhoneFormatPipe implements PipeTransform {
     const digitsOnly = removeNonDigits(phone) ?? '';
 
     // Find country by code, if it does not exist - chose international which is first
-    const countryHelper = getCountryHelperByCountryCode(countryIsoCode);
-
+    const countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode);
+  console.log(countryHelper)
     // Check if country code is needed
     withCountryCode = checkIsItWithCountryCode(withCountryCode, this.config);
 

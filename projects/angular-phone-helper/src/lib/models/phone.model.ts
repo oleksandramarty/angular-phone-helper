@@ -4,3 +4,8 @@ export interface IPhoneModel {
   format: string | null;
   pattern: string | null;
 }
+
+export interface IPhonePipeOptions {
+  iso?: string | null | undefined,
+  prefix?: boolean | null | undefined,
+}

@@ -24,7 +24,7 @@ export class AngularPhoneHelperModule {
       providers: [
         { provide: API_CONFIG_TOKEN, useValue: config },
         AngularPhoneHelperService,
-      ]
+      ],
     }
   }
 }
