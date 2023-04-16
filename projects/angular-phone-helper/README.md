@@ -1,17 +1,3 @@
-## Config options model
-```ts
-export interface ApiConfig {
-  defaultCountryIsoCode?: string | null | undefined,
-  defaultWithCountryCode?: boolean | null | undefined,
-}
-
-export const defaultConfig = {
-  defaultCountryIsoCode: '',
-  defaultWithCountryCode: true,
-}
-
-```
-
 ## Setting up in `module's imports`
 ```ts
 AngularPhoneHelperModule.forRoot({
@@ -23,6 +9,10 @@ AngularPhoneHelperModule.forRoot({
 ```ts
 NOTE: Config is optional
 ```
+| Key                       | Type      | Optional  | Default value  |
+|---------------------------|-----------|-----------|----------------|
+| `defaultCountryIsoCode`   | `string`  | `yes`     | ` `            |
+| `defaultWithCountryCode`  | `boolean` | `yes`     | `true`         |
 
 ## Usage `PhoneFormatService` in `ts`
 ```ts
