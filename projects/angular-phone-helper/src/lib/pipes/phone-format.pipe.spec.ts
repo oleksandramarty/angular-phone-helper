@@ -60,6 +60,13 @@ describe('PhoneFormatPipe', () => {
     { id: 39, phone: ' abc', code: null, withCode: false, expected: '' },
     { id: 40, phone: '11234567890', code: null, expected: '+1 123 456 7890' },
     { id: 41, phone: '11234567890', code: null, withCode: false, expected: '+1 123 456 7890' },
+
+    { id: 42, phone: '1234567890', code: 'IT', expected: '+39 123 456 7890' },
+    { id: 43, phone: '1234567890', code: 'IT', withCode: false, expected: '123 456 7890' },
+    { id: 44, phone: '+391234567890', code: 'IT', expected: '+39 123 456 7890' },
+    { id: 45, phone: '+391234567890', code: 'IT', withCode: false, expected: '123 456 7890' },
+    { id: 46, phone: '+401234567890', code: 'IT', expected: '+39 123 456 7890' },
+    { id: 47, phone: '+401234567890', code: 'IT', withCode: false, expected: '123 456 7890' },
   ];
 
   it('All data IDs are unique', () => {

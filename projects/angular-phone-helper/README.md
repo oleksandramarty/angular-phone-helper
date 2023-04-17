@@ -30,6 +30,15 @@ constructor(private readonly phoneFormatService: PhoneFormatService) {
 }
 ```
 
+### `PhoneFormatService` methods
+- isInternationalFormatted
+- isUnitedStatesFormatted
+- isCanadaFormatted
+- isUnitedKingdomFormatted
+- isFranceFormatted
+- isGermanyFormatted
+- isItalyFormatted
+
 ## Usage `PhoneFormatPipe` in `ts`
 ```ts
 import {countriesDictionary, PhoneFormatPipe} from "angular-phone-helper";
@@ -105,3 +114,4 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 | `GBR`            | `+44`        | `0XX XXXX XXXX`   |
 | `FRA`            | `+33`        | `0X XX XX XX XX`  |
 | `DEU`            | `+49`        | `0XXX XXXXXXX`    |
+| `ITA`            | `+39`        | `XXX XXX XXXX`    |

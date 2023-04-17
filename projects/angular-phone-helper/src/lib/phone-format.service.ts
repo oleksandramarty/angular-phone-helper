@@ -33,6 +33,9 @@ export class PhoneFormatService {
   public isGermanyFormatted(phone: string | null | undefined): boolean {
     return this.isMatched(phone, countriesDictionary.deu);
   }
+  public isItalyFormatted(phone: string | null | undefined): boolean {
+    return this.isMatched(phone, countriesDictionary.ita);
+  }
 
   private isMatched(phone: string | null | undefined, countryHelper: ICountryModel): boolean {
     if (!phone) {

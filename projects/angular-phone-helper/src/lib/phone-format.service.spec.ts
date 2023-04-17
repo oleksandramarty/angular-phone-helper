@@ -49,6 +49,10 @@ describe('PhoneFormatService', () => {
     { id: 16, phone: '0123 4567890', expected: true, countryHelper: countriesDictionary.deu, },
     { id: 17, phone: '+49 123 4567890', expected: true, countryHelper: countriesDictionary.deu, },
     { id: 18, phone: '+48 123 4567890', expected: false, countryHelper: countriesDictionary.deu, },
+
+    { id: 19, phone: '123 456 7890', expected: true, countryHelper: countriesDictionary.ita, },
+    { id: 20, phone: '+39 123 456 7890', expected: true, countryHelper: countriesDictionary.ita, },
+    { id: 21, phone: '+48 123 4567890', expected: false, countryHelper: countriesDictionary.ita, },
   ];
 
   testUsaOrCanadaData.forEach((item ,index) => {
@@ -73,6 +77,9 @@ describe('PhoneFormatService', () => {
           break;
         case countriesDictionary.deu.id:
           result = service.isGermanyFormatted(item.phone);
+          break;
+        case countriesDictionary.ita.id:
+          result = service.isItalyFormatted(item.phone);
           break;
       }
       expect(result).toEqual(item.expected);
