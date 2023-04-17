@@ -1,12 +1,13 @@
 {
   "name": "angular-phone-helper",
-  "version": "0.0.0",
+  "version": "0.1.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "build-library": "ng build angular-phone-helper",
     "pack-lib": "cd dist/angular-phone-helper && npm pack"
   },
@@ -30,6 +31,7 @@
     "@angular/compiler-cli": "~12.0.2",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "conventional-changelog-cli": "^2.2.2",
     "jasmine-core": "~3.7.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

@@ -1,5 +1,7 @@
 ## Setting up in `module's imports`
 ```ts
+import {AngularPhoneHelperModule} from "angular-phone-helper";
+
 AngularPhoneHelperModule.forRoot({
     defaultCountryIsoCode: countriesDictionary.international.isoCode, // Country ISO code
     defaultWithCountryCode: true, // Add prefix by default
@@ -18,8 +20,6 @@ NOTE: Config is optional
 ```ts
 import {PhoneFormatService} from "angular-phone-helper";
 
-...
-
 constructor(private readonly phoneFormatService: PhoneFormatService) {
   this.phoneFormatService.isInternationalFormatted('+3 123 456 7890'); // true
   this.phoneFormatService.isInternationalFormatted('+4811231234567890'); // false
@@ -30,11 +30,18 @@ constructor(private readonly phoneFormatService: PhoneFormatService) {
 }
 ```
 
+### `PhoneFormatService` methods
+- isInternationalFormatted
+- isUnitedStatesFormatted
+- isCanadaFormatted
+- isUnitedKingdomFormatted
+- isFranceFormatted
+- isGermanyFormatted
+- isItalyFormatted
+
 ## Usage `PhoneFormatPipe` in `ts`
 ```ts
 import {countriesDictionary, PhoneFormatPipe} from "angular-phone-helper";
-
-...
 
 constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
   this.phoneFormatPipe.transform('31234567890'); // +3 123 456 7890
@@ -107,3 +114,4 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 | `GBR`            | `+44`        | `0XX XXXX XXXX`   |
 | `FRA`            | `+33`        | `0X XX XX XX XX`  |
 | `DEU`            | `+49`        | `0XXX XXXXXXX`    |
+| `ITA`            | `+39`        | `XXX XXX XXXX`    |

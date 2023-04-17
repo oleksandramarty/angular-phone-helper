@@ -8,6 +8,7 @@ export interface ICountryListModel {
   gbr: ICountryModel,
   fra: ICountryModel,
   deu: ICountryModel,
+  ita: ICountryModel,
 }
 
 export interface ICountryModel {
