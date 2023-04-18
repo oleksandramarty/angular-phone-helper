@@ -67,6 +67,8 @@ describe('PhoneFormatPipe', () => {
     { id: 45, phone: '+391234567890', code: 'IT', withCode: false, expected: '123 456 7890' },
     { id: 46, phone: '+401234567890', code: 'IT', expected: '+39 123 456 7890' },
     { id: 47, phone: '+401234567890', code: 'IT', withCode: false, expected: '123 456 7890' },
+
+    { id: 48, phone: '+4012345678900', code: 'CN', withCode: false, expected: '123 4567 8900' },
   ];
 
   it('All data IDs are unique', () => {
