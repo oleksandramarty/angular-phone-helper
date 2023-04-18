@@ -9,6 +9,13 @@ export interface ICountryListModel {
   fra: ICountryModel,
   deu: ICountryModel,
   ita: ICountryModel,
+  pol: ICountryModel,
+  ukr: ICountryModel,
+  mda: ICountryModel,
+  grc: ICountryModel,
+  tur: ICountryModel,
+  ind: ICountryModel,
+  chn: ICountryModel,
 }
 
 export interface ICountryModel {

@@ -38,6 +38,23 @@ constructor(private readonly phoneFormatService: PhoneFormatService) {
 - isFranceFormatted
 - isGermanyFormatted
 - isItalyFormatted
+- isPolandFormatted
+- isUkraineFormatted
+- isMoldovaFormatted
+- isGreeceFormatted
+- isTurkeyFormatted
+- isIndiaFormatted
+- isChinaFormatted
+
+```text
+Input >>> phone: string
+Output >>> result: boolean
+```
+- isFormatted
+```text
+Input >>> phone: string, countryIsoCode: string
+Output >>> result: boolean
+```
 
 ## Usage `PhoneFormatPipe` in `ts`
 ```ts
@@ -106,12 +123,19 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 
 ## Supported countries (in progress...)
 
-| Country ISO code | Phone prefix | Phone format      |
-|------------------|--------------|-------------------|
-| `International`  | ` `          | `+X XXX XXX XXXX` |
-| `USA`            | `+1`         | `(XXX) XXX-XXXX`  |
-| `CAN`            | `+1`         | `(XXX) XXX-XXXX`  |
-| `GBR`            | `+44`        | `0XX XXXX XXXX`   |
-| `FRA`            | `+33`        | `0X XX XX XX XX`  |
-| `DEU`            | `+49`        | `0XXX XXXXXXX`    |
-| `ITA`            | `+39`        | `XXX XXX XXXX`    |
+| Country ISO code | Phone prefix  | Phone format       |
+|------------------|---------------|--------------------|
+| `International`  | ` `           | `+X XXX XXX XXXX`  |
+| `USA`            | `+1`          | `(XXX) XXX-XXXX`   |
+| `CAN`            | `+1`          | `(XXX) XXX-XXXX`   |
+| `GBR`            | `+44`         | `0XX XXXX XXXX`    |
+| `FRA`            | `+33`         | `0X XX XX XX XX`   |
+| `DEU`            | `+49`         | `0XXX XXXXXXX`     |
+| `ITA`            | `+39`         | `XXX XXX XXXX`     |
+| `POL`            | `+48`         | `XXX XXX XXX`      |
+| `UKR`            | `+380`        | `XXX XXX XX XX`    |
+| `MDA`            | `+373`        | `XX XXX XXX`       |
+| `GRC`            | `+30`         | `XXX XXX XXXX`     |
+| `TUR`            | `+90`         | `XXX XXX XXXX`     |
+| `IND`            | `+91`         | `XXXXX XXXXX`      |
+| `CHN`            | `+86`         | `XXX XXXX XXXX`    |
