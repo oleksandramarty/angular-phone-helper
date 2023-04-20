@@ -1,7 +1,7 @@
 {
   "name": "angular-phone-helper",
-  "version": "0.5.1",
-  "description": "Useful tool for piping and detecting phone format",
+  "version": "0.5.2",
+  "description": "Useful tool for piping and detecting phone format - 188 countries + International format",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^12.0.5",
