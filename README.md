@@ -26,19 +26,6 @@ NOTE: will add custom format
 | `defaultCountryIsoCode`   | `string`  | `yes`     | ` `            |
 | `defaultWithCountryCode`  | `boolean` | `yes`     | `true`         |
 
-## Usage `PhoneFormatService` in `ts`
-```ts
-import {PhoneFormatService} from "angular-phone-helper";
-
-constructor(private readonly phoneFormatService: PhoneFormatService) {
-  this.phoneFormatService.isInternationalFormatted('+3 123 456 7890'); // true
-  this.phoneFormatService.isInternationalFormatted('+4811231234567890'); // false
-  this.phoneFormatService.isInternationalFormatted('+481 2312 67890'); // false
-  this.phoneFormatService.isUnitedStatesFormatted('(123) 456-7890'); // true
-  this.phoneFormatService.isUnitedStatesFormatted('+1 (123) 456-7890'); // true
-  this.phoneFormatService.isUnitedStatesFormatted('+2 (123) 456-7890'); // false
-}
-```
 ## Usage `PhoneFormatPipe` in `ts`
 ```ts
 import {countriesDictionary, PhoneFormatPipe} from "angular-phone-helper";

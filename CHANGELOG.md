@@ -1,3 +1,6 @@
+## 0.5.1 (2023-04-20)
+- Fix README.md
+
 ## 0.5.0 (2023-04-20)
 - Add  Indonesia, Philippines, Australia, Brazil, Argentina, Mexico, Spain, Czech Republic, Peru, Japan, South Korea, Austria, Azerbaijan, Albania, Algeria, Angola, Andorra, Antig
   ua And Barbuda, Armenia, Afghanistan, Uzbekistan, Yemen, Saint Kitts And Nevis, Bangladesh, Bahamas, Barbados, Bahrain, Belize, Belgium, Benin, Bulgaria, Bolivia, Bosnia And Herzegovina, Botswana, Brunei, Burkina Faso, Burundi, Bhutan, Vanuatu, Hungary, Venezuela, East Timor, Vietnam, Gabon, Haiti, Guyana, Gamb
