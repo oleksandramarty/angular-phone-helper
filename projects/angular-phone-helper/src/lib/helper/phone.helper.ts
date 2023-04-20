@@ -67,7 +67,6 @@ export function convertToFormattedCountryPhone(phone: string | null, countryHelp
   let hasZero = countryHelper.phone.format.startsWith('0');
 
   let result = !!withCountryCode ? `${countryHelper.phone.code} ${(hasZero ? temp.slice(1) : temp)}`  : temp;
-
   return result.trim();
 }
 
@@ -79,4 +78,30 @@ export function checkIsItWithCountryCode(withCountryCode?: boolean | null | unde
     return withCountryCode;
   }
   return config.defaultWithCountryCode;
+}
+
+export function getMockPhone(phoneFormat: string | null | undefined, withCode: boolean): string | null | undefined {
+  if (!phoneFormat) {
+    return '';
+  }
+  let outputString = "";
+  let digitCount = 1;
+
+  for (let i = 0; i < phoneFormat.length; i++) {
+    const char = phoneFormat.charAt(i);
+    if (char === "X") {
+      outputString += digitCount % 10;
+      digitCount++;
+    } else {
+      if (char !== "0") {
+        outputString += char;
+      }
+    }
+  }
+
+  if (phoneFormat.startsWith("0") && !withCode) {
+    outputString = `0${outputString}`;
+  }
+
+  return outputString.replace(/^(\++)+/g, '+');
 }

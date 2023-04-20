@@ -9,7 +9,7 @@ export interface ICountryPhoneMock {
 }
 
 export interface ICountryPhoneListFormattedMock {
-  id: number,
+  id: string,
   phone?: string | null,
   expected: boolean,
   countryHelper: ICountryModel,
