@@ -1,6 +1,7 @@
 import {countriesDictionary} from "./data.helper";
 import {ApiConfig} from "../models/config.model";
 import {ICountryModel} from "../models/country.model";
+import {IPhoneModel} from "../models/phone.model";
 
 export function removeNonDigits(str: string | null): string | null {
   if (!str) {
@@ -9,8 +10,14 @@ export function removeNonDigits(str: string | null): string | null {
   return str.replace(/\D/g, '');
 }
 
-export function getCountryHelperByCountryCode(countryCode?: string | null | undefined, defaultCountryIsoCode?: string | null | undefined): ICountryModel {
+export function getCountryHelperByCountryCode(
+  countryCode?: string | null | undefined,
+  defaultCountryIsoCode?: string | null | undefined,
+  customCountryModel?: ICountryModel | null | undefined): ICountryModel {
   if (!countryCode) {
+    if (!!customCountryModel) {
+      return customCountryModel;
+    }
     if (!defaultCountryIsoCode) {
       return countriesDictionary.international;
     } else {
@@ -40,10 +47,11 @@ export function convertToFormattedCountryPhone(phone: string | null, countryHelp
   }
 
   let temp = '';
+  let format = withCountryCode ? (countryHelper.phone.formatInternational ?? countryHelper.phone.format) : countryHelper.phone.format;
 
   let arr = Array(countryHelper.phone.format?.length ?? 0).fill(-1);
   let digIndex = 0;
-  countryHelper.phone.format.split('').forEach((item, index) => {
+  format.split('').forEach((item, index) => {
     if (item === 'X') {
       arr[index] = digIndex;
       digIndex++;
@@ -61,12 +69,12 @@ export function convertToFormattedCountryPhone(phone: string | null, countryHelp
   arr.forEach((item, index) => {
     temp += item > -1 ?
       (!!phone && !!phone[item] ? phone[item] : '') :
-      (!!countryHelper.phone.format && !!countryHelper.phone.format[index] ? countryHelper.phone.format[index] : '');
+      (!!format && !!format[index] ? format[index] : '');
   });
 
-  let hasZero = countryHelper.phone.format.startsWith('0');
+  // let hasZero = countryHelper.phone.format.startsWith('0');
 
-  let result = !!withCountryCode ? `${countryHelper.phone.code} ${(hasZero ? temp.slice(1) : temp)}`  : temp;
+  let result = !!withCountryCode ? `${countryHelper.phone.code} ${(temp)}`  : temp;
   return result.trim();
 }
 
@@ -80,12 +88,13 @@ export function checkIsItWithCountryCode(withCountryCode?: boolean | null | unde
   return config.defaultWithCountryCode;
 }
 
-export function getMockPhone(phoneFormat: string | null | undefined, withCode: boolean): string | null | undefined {
-  if (!phoneFormat) {
+export function getMockPhone(phoneHelper: IPhoneModel | null | undefined, withCode: boolean): string | null | undefined {
+  if (!phoneHelper) {
     return '';
   }
   let outputString = "";
   let digitCount = 1;
+  let phoneFormat = (!!withCode ? (phoneHelper.formatInternational ?? phoneHelper.format) : phoneHelper.format)!;
 
   for (let i = 0; i < phoneFormat.length; i++) {
     const char = phoneFormat.charAt(i);
@@ -93,14 +102,8 @@ export function getMockPhone(phoneFormat: string | null | undefined, withCode: b
       outputString += digitCount % 10;
       digitCount++;
     } else {
-      if (char !== "0") {
-        outputString += char;
-      }
+      outputString += char;
     }
-  }
-
-  if (phoneFormat.startsWith("0") && !withCode) {
-    outputString = `0${outputString}`;
   }
 
   return outputString.replace(/^(\++)+/g, '+');

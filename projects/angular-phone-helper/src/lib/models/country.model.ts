@@ -201,7 +201,7 @@ export interface ICountryListModel {
 }
 
 export interface ICountryModel {
-  id: number | null,
+  id?: number | null,
   name: string | null,
   isoCode: string | null,
   isoCodeAlpha2: string | null,
