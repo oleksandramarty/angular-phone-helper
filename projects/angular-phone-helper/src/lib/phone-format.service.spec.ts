@@ -26,19 +26,24 @@ describe('PhoneFormatService', () => {
     expect(service).toBeTruthy();
   });
 
+  // it('Custom method', () => {
+  //  const result = service.isCustomFormatted('(123) 456-78-90')
+  //   expect(result).toBeTruthy();
+  // });
+
   Object.keys(countriesDictionary).forEach(name => {
     let testData: ICountryPhoneListFormattedMock[] = [];
     if (!!countriesDictionary[name]) {
       testData.push({
         id: `${countriesDictionary[name].isoCode}-${countriesDictionary[name].id}-1`,
-        phone: getMockPhone(countriesDictionary[name].phone.format, false),
+        phone: getMockPhone(countriesDictionary[name].phone, false),
         expected: true,
         countryHelper: countriesDictionary[name],
       });
 
       let phone = countriesDictionary[name].id === 1 ?
-        `${getMockPhone(countriesDictionary[name].phone.format, true)}` :
-        `${countriesDictionary[name].phone.codeDigit} ${getMockPhone(countriesDictionary[name].phone.format, true)}`
+        `${getMockPhone(countriesDictionary[name].phone, true)}` :
+        `${countriesDictionary[name].phone.codeDigit} ${getMockPhone(countriesDictionary[name].phone, true)}`
 
       testData.push({
         id: `${countriesDictionary[name].isoCode}-${countriesDictionary[name].id}-2`,

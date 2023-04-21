@@ -10,21 +10,76 @@
 ```ts
 import {AngularPhoneHelperModule} from "angular-phone-helper";
 
+// default country config
 AngularPhoneHelperModule.forRoot({
   defaultCountryIsoCode: 'USA', // Country ISO code
   defaultWithCountryCode: false, // Add prefix by default
 })
+
+// custom country config
+AngularPhoneHelperModule.forRoot({
+  defaultWithCountryCode: true,
+  customCountry: {
+    isoCode: 'YOUR_CODE_3_LEN',
+    isoCodeAlpha2: 'YOUR_CODE_2_LEN',
+    name: 'YOUR_COUNTRY_NAME',
+    phone: {
+      codeDigit: '10',
+      code: '+10',
+      format: 'XXX XXX-XX-XX',
+      formatInternational: 'XXX XXX-XX-XX',
+    }
+  }
+}),
 ```
 
 ```ts
 NOTE: Config is optional
 
-NOTE: will add custom format
+NOTE: For custom country
+Some countries have differnt format 
+For example: France
+codeDigit: "33", code: "+33", formatInternational: "X XX XX XX XX", format: "0X XX XX XX XX"
+X - digits
+0 - const
 ```
-| Key                       | Type      | Optional  | Default value  |
-|---------------------------|-----------|-----------|----------------|
-| `defaultCountryIsoCode`   | `string`  | `yes`     | ` `            |
-| `defaultWithCountryCode`  | `boolean` | `yes`     | `true`         |
+### ApiConfig
+| Key                       | Type           | Optional  | Default value |
+|---------------------------|----------------|-----------|---------------|
+| `defaultCountryIsoCode`   | `string`       | `yes`     | ` `           |
+| `defaultWithCountryCode`  | `boolean`      | `yes`     | `true`        |
+| `customCountry`           | `CountryModel` | `yes`     | `null`        |
+
+### CountryModel
+| Key                       | Type            | Optional | Default value |
+|---------------------------|-----------------|----------|---------------|
+| `name`                    | `string`        | `no`     | ` `           |
+| `isoCode`                 | `string`        | `no`     | ` `           |
+| `isoCodeAlpha2`           | `string`        | `no`     | ` `           |
+| `phone`                   | `PhoneModel`    | `no`     | ` `           |
+
+### PhoneModel
+| Key                       | Type            | Optional | Default value |
+|---------------------------|-----------------|----------|---------------|
+| `code`                    | `string`        | `no`     | ` `           |
+| `codeDigit`               | `string`        | `no`     | ` `           |
+| `format`                  | `string`        | `no`     | ` `           |
+| `formatInternational`     | `string`        | `yes`    | ` `           |
+
+## Usage `PhoneFormatService` in `ts`
+```ts
+import {PhoneFormatService} from "angular-phone-helper";
+
+constructor(private readonly phoneFormatService: PhoneFormatService) {
+  this.phoneFormatService.isCustomFormatted('123 456-78-90'); // true
+  this.phoneFormatService.isInternationalFormatted('+3 123 456 7890'); // true
+  this.phoneFormatService.isInternationalFormatted('+4811231234567890'); // false
+  this.phoneFormatService.isInternationalFormatted('+481 2312 67890'); // false
+  this.phoneFormatService.isUnitedStatesFormatted('(123) 456-7890'); // true
+  this.phoneFormatService.isUnitedStatesFormatted('+1 (123) 456-7890'); // true
+  this.phoneFormatService.isUnitedStatesFormatted('+2 (123) 456-7890'); // false
+}
+```
 
 ## Usage `PhoneFormatPipe` in `ts`
 ```ts
@@ -48,7 +103,7 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 
 ## Supported countries (in progress...)
 ```text
-NOTE: Methods in table
+NOTE: Methods in table and `custom country method`
 Input >>> phone: string
 Output >>> result: boolean
 
@@ -260,37 +315,3 @@ Output >>> result: boolean
 | `1234567890`        | `+1 (123) 456-7890` | USA with prefix                |
 | `1234567890`        | `+1 (123) 456-7890` | USA with prefix                |
 | `1234567890`        | `(123) 456-7890`    | USA without prefix             |
-| `1234567890`        | `+1 (123) 456-7890` | CAN with prefix                |
-| `1234567890`        | `+44 12 3456 7890`  | GBR with prefix                |
-| `01234567890`       | `+44 12 3456 7890`  | GBR with prefix                |
-| `1234567890`        | `012 3456 7890`     | GBR without prefix             |
-| `01234567890`       | `012 3456 7890`     | GBR without prefix             |
-| `123456789`         | `+33 1 23 45 67 89` | FRA with prefix                |
-| `0123456789`        | `+33 1 23 45 67 89` | FRA with prefix                |
-| `123456789`         | `01 23 45 67 89`    | FRA without prefix             |
-| `0123456789`        | `01 23 45 67 89`    | FRA without prefix             |
-| `1234567890`        | `+49 123 4567890`   | DEU with prefix                |
-| `01234567890`       | `+49 123 4567890`   | DEU with prefix                |
-| `1234567890`        | `0123 4567890`      | DEU without prefix             |
-| `01234567890`       | `0123 4567890`      | DEU without prefix             |
-| `+44 1234567890`    | `+44 12 3456 7890`  | GBR with prefix                |
-| `+44 01234567890`   | `+44 12 3456 7890`  | GBR with prefix                |
-| `+44 1234567890`    | `012 3456 7890`     | GBR without prefix             |
-| `+44 01234567890`   | `012 3456 7890`     | GBR without prefix             |
-| `+33123456789`      | `+33 1 23 45 67 89` | FRA with prefix                |
-| `+330123456789`     | `+33 1 23 45 67 89` | FRA with prefix                |
-| `+33123456789`      | `01 23 45 67 89`    | FRA without prefix             |
-| `+330123456789`     | `01 23 45 67 89`    | FRA without prefix             |
-| `+491234567890`     | `+49 123 4567890`   | DEU with prefix                |
-| `+4901234567890`    | `+49 123 4567890`   | DEU with prefix                |
-| `+491234567890`     | `0123 4567890`      | DEU without prefix             |
-| `+4901234567890`    | `0123 4567890`      | DEU without prefix             |
-| `+481234567890`     | `+49 123 4567890`   | DEU with prefix                |
-| `+4801234567890`    | `0123 4567890`      | DEU without prefix             |
-| `+4811231234567890` | `+3 123 456 7890`   | international with prefix      |
-| `null`              | ` `                 | international with prefix      |
-| `123`               | `123`               | international with prefix      |
-| ` `                 | ` `                 | international with prefix      |
-| ` abc`              | ` `                 | international with prefix      |
-| `11234567890`       | `+1 123 456 7890`   | international with prefix      |
-| `11234567890`       | `+1 123 456 7890`   | international with prefix      |

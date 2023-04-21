@@ -1,3 +1,11 @@
+## 0.9.0 (2023-04-21)
+- Fix keywords
+- Add custom country config
+- Add custom country matched service method
+- Update phone pipe or custom country
+- Update unit tests
+- Update README.md
+
 ## 0.5.1 (2023-04-20)
 - Fix README.md
 

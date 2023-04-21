@@ -16,12 +16,31 @@ export class PhoneFormatService {
     private readonly phoneFormatPipe: PhoneFormatPipe,
     ) { }
 
-  public isFormatted(phone: string | null | undefined, countryIsoCode: string | null | undefined): boolean {
-    if (!phone || !countryIsoCode) {
+  public isCustomFormatted(phone: string | null | undefined,): boolean {
+    if (!phone) {
       return false;
     }
 
-    const countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode);
+    const countryHelper = getCountryHelperByCountryCode(null, null, this.config?.customCountry);
+    if (!countryHelper) {
+      return false;
+    }
+
+    countryHelper.isoCode = null;
+
+    return this.isMatchedWithHelper(phone, countryHelper);
+  }
+
+  public isFormatted(phone: string | null | undefined, countryIsoCode?: string | null | undefined): boolean {
+    if (!phone) {
+      return false;
+    }
+
+    const countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode, this.config?.customCountry);
+
+    if (!countryHelper) {
+      return false;
+    }
 
     return this.isMatchedWithHelper(phone, countryHelper);
   }

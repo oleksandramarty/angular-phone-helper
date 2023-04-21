@@ -69,6 +69,7 @@ describe('PhoneFormatPipe', () => {
     { id: 47, phone: '+401234567890', code: 'IT', withCode: false, expected: '123 456 7890' },
 
     { id: 48, phone: '+4012345678900', code: 'CN', withCode: false, expected: '123 4567 8900' },
+    { id: 49, phone: '1234567890', code: 'US', expected: '+1 (123) 456-7890' },
   ];
 
   it('All data IDs are unique', () => {
@@ -92,4 +93,10 @@ describe('PhoneFormatPipe', () => {
       // console.log(`PASSED: ${message}`);
     });
   });
+
+  // it('Custom phone', () => {
+  //   const result = pipe.transform('1234567890');
+  //   expect(result).toEqual('+7 (123) 456-78-90');
+  //   // console.log(`PASSED: ${message}`);
+  // });
 });
