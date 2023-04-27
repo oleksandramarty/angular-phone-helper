@@ -37,7 +37,7 @@ AngularPhoneHelperModule.forRoot({
 NOTE: Config is optional
 
 NOTE: For custom country
-Some countries have differnt format 
+Some countries have different format 
 For example: France
 codeDigit: "33", code: "+33", formatInternational: "X XX XX XX XX", format: "0X XX XX XX XX"
 X - digits
