@@ -1,7 +1,7 @@
 import {countriesDictionary} from "./data.helper";
 import {ApiConfig} from "../models/config.model";
 import {ICountryModel} from "../models/country.model";
-import {IPhoneModel} from "../models/phone.model";
+import {IPhoneModel, IPhonePipeOptions} from "../models/phone.model";
 
 /**
  * Remove all non-digit characters from a string.
@@ -17,6 +17,41 @@ export function sanitizePhoneNumber(str: string | null): string | null {
     throw new TypeError('The input parameter must be a string or null.');
   }
   return str.replace(/\D/g, '');
+}
+
+/**
+
+ This function takes a country helper object and phone pipe options object and returns a modified country helper object with a custom phone number format.
+ If the input parameters are null or undefined or if the options object does not contain a code or a format, the function returns the original country helper object.
+ If the options object contains either a code or a format, the function returns a new country helper object with the custom format.
+ @param {ICountryModel} countryHelper - The country helper object to modify.
+ @param {IPhonePipeOptions|null} options - The phone pipe options object.
+ @returns {ICountryModel} The modified country helper object or null or undefined if the input parameters are null or undefined.
+ */
+export function checkCustomFormat(
+  countryHelper: ICountryModel,
+  options?: IPhonePipeOptions | null
+): ICountryModel {
+  if (!countryHelper || !options || (!options.code && !options.format)) {
+    return countryHelper;
+  }
+  if (!!options.code || !!options.format) {
+    const format = options.format ?? "";
+    return {
+      id: 0,
+      name: "Custom format",
+      isoCode: "",
+      isoCodeAlpha2: "",
+      phone: {
+        codeDigit: "",
+        code: options.code ?? "",
+        format: format,
+        formatInternational: format,
+        pattern: "",
+      },
+    }
+  }
+  return countryHelper;
 }
 
 /**
@@ -133,13 +168,30 @@ export function getMockPhone(phoneModel: IPhoneModel | null | undefined, withCod
     return null;
   }
 
-  let outputString = "";
-  let digitCount = 1;
   const phoneFormat = withCode ? phoneModel.formatInternational ?? phoneModel.format : phoneModel.format;
+
+  return getMockPhoneFromString(phoneFormat)
+}
+
+/**
+ * This function takes a phone number format string and returns a string with digits in place of "X"s.
+ * If the input parameter is null or undefined, the function returns null.
+ * If the input parameter is not a string, the function throws a TypeError.
+ * @param {string|null|undefined} phoneFormat - The phone number format string.
+ * @returns {string|null|undefined} The formatted phone number string or null if the input parameter is null or undefined.
+ * @throws {TypeError} The input parameter must be a string or null.
+ */
+export function getMockPhoneFromString(phoneFormat: string | null | undefined): string | null | undefined {
+  if (!phoneFormat) {
+    return null;
+  }
 
   if (typeof phoneFormat !== 'string') {
     throw new TypeError('The input parameter must be a string or null.');
   }
+
+  let outputString = "";
+  let digitCount = 1;
 
   for (let i = 0; i < phoneFormat.length; i++) {
     const char = phoneFormat.charAt(i);

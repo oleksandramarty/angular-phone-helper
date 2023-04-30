@@ -63,7 +63,7 @@ describe('countriesDictionary', () => {
     expect(resultArray.length > 0).toBeFalse();
   });
 
-  xit('All ISO codes in dictionary', () => {
+  it('All ISO codes in dictionary', () => {
     const dictionaryISOCodes: string[] = [];
     Object.keys(countriesDictionary).forEach(name => {
       dictionaryISOCodes.push(countriesDictionary[name].isoCode!)

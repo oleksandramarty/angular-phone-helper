@@ -5,7 +5,7 @@ import {
   getWithCountryCodePreference,
   convertToFormattedCountryPhone,
   getCountryHelperByCountryCode,
-  sanitizePhoneNumber,
+  sanitizePhoneNumber, checkCustomFormat,
 } from "../helper/phone.helper";
 import {API_CONFIG_TOKEN} from "../di";
 import {ApiConfig, defaultConfig} from "../models/config.model";
@@ -65,7 +65,10 @@ export class PhoneFormatPipe implements PipeTransform {
     const digitsOnly = sanitizePhoneNumber(phone) ?? '';
 
     // Find country by code, if it does not exist - chose international which is first
-    const countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode, this.config?.customCountry);
+    let countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode, this.config?.customCountry);
+
+    // Check custom format from options
+    countryHelper = checkCustomFormat(countryHelper, options);
 
     // Check if country code is needed
     withCountryCode = getWithCountryCodePreference(withCountryCode, this.config);

@@ -21,8 +21,12 @@ export interface IPhoneModel {
  * @typedef {Object} IPhonePipeOptions
  * @property {string|null|undefined} [iso] - ISO country code. If provided, the phone number will be formatted according to the specified country's rules.
  * @property {boolean|null|undefined} [prefix] - Whether or not to include the country code prefix. Default is `false`.
+ * @property {string|null|undefined} [code] - Phone code. Default is ``.
+ * @property {string|null|undefined} [format] - Phone format. Default is ``.
  */
 export interface IPhonePipeOptions {
   iso?: string | null | undefined,
   prefix?: boolean | null | undefined,
+  code?: string | null | undefined,
+  format?: string | null | undefined,
 }
