@@ -1,3 +1,6 @@
+## 1.0.1 (2023-04-30)
+- Update README.md
+- 
 ## 1.0.0 (2023-04-30)
 - Add custom format options for pipe
 - Update helpers
