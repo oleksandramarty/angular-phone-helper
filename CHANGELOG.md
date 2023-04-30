@@ -1,3 +1,13 @@
+## 1.0.1 (2023-04-30)
+- Update README.md
+- 
+## 1.0.0 (2023-04-30)
+- Add custom format options for pipe
+- Update helpers
+- Add comments
+- Update unit tests
+- Update README.md
+
 ## 0.9.0 (2023-04-21)
 - Fix keywords
 - Add custom country config

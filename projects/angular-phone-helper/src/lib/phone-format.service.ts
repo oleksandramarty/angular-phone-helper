@@ -12,54 +12,54 @@ import {getCountryHelperByCountryCode} from "./helper/phone.helper";
 export class PhoneFormatService {
 
   constructor(
-    @Optional() @Inject(API_CONFIG_TOKEN) private readonly config: ApiConfig | null,
-    private readonly phoneFormatPipe: PhoneFormatPipe,
-    ) { }
+    @Optional() @Inject(API_CONFIG_TOKEN) private readonly config: ApiConfig | null, // Injects the API config or null
+    private readonly phoneFormatPipe: PhoneFormatPipe, // Injects the PhoneFormatPipe service
+  ) { }
 
-  public isCustomFormatted(phone: string | null | undefined,): boolean {
+  public isCustomFormatted(phone: string | null | undefined,): boolean { // Returns true if the given phone is custom-formatted
     if (!phone) {
-      return false;
+      return false; // If the phone is null or undefined, return false
     }
 
-    const countryHelper = getCountryHelperByCountryCode(null, null, this.config?.customCountry);
+    const countryHelper = getCountryHelperByCountryCode(null, null, this.config?.customCountry); // Gets the countryHelper object based on the custom country code
     if (!countryHelper) {
-      return false;
+      return false; // If countryHelper is null, return false
     }
 
-    countryHelper.isoCode = null;
+    countryHelper.isoCode = null; // Set the isoCode property of the countryHelper object to null
 
-    return this.isMatchedWithHelper(phone, countryHelper);
+    return this.isMatchedWithHelper(phone, countryHelper); // Calls the isMatchedWithHelper method with the given phone and countryHelper object
   }
 
-  public isFormatted(phone: string | null | undefined, countryIsoCode?: string | null | undefined): boolean {
+  public isFormatted(phone: string | null | undefined, countryIsoCode?: string | null | undefined): boolean { // Returns true if the given phone is formatted based on the given country ISO code
     if (!phone) {
-      return false;
+      return false; // If the phone is null or undefined, return false
     }
 
-    const countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode, this.config?.customCountry);
+    const countryHelper = getCountryHelperByCountryCode(countryIsoCode, this.config?.defaultCountryIsoCode, this.config?.customCountry); // Gets the countryHelper object based on the given country ISO code, default country ISO code and custom country code
 
     if (!countryHelper) {
-      return false;
+      return false; // If countryHelper is null, return false
     }
 
-    return this.isMatchedWithHelper(phone, countryHelper);
+    return this.isMatchedWithHelper(phone, countryHelper); // Calls the isMatchedWithHelper method with the given phone and countryHelper object
   }
 
-  private isMatchedWithHelper(phone: string | null | undefined, countryHelper: ICountryModel): boolean {
+  private isMatchedWithHelper(phone: string | null | undefined, countryHelper: ICountryModel): boolean { // Returns true if the given phone is matched with the countryHelper object
     if (!phone) {
-      return false;
+      return false; // If the phone is null or undefined, return false
     }
 
-    const phoneWithoutCode = this.phoneFormatPipe.transform(phone, { iso: countryHelper.isoCode, prefix: false });
-    const phoneWithCode = this.phoneFormatPipe.transform(phone, { iso: countryHelper.isoCode, prefix: true });
+    const phoneWithoutCode = this.phoneFormatPipe.transform(phone, { iso: countryHelper.isoCode, prefix: false }); // Gets the phone number without the country code
+    const phoneWithCode = this.phoneFormatPipe.transform(phone, { iso: countryHelper.isoCode, prefix: true }); // Gets the phone number with the country code
 
-    const arrPhones = [
-      `+${phone}`.replace(/^(\++)+/g, '+'),
-      phone,
-      `${countryHelper.phone.code} ${phone}`,
+    const arrPhones = [ // Creates an array of phone numbers
+      `+${phone}`.replace(/^(\++)+/g, '+'), // Adds the plus sign to the beginning of the phone number
+      phone, // Adds the phone number without any modifications
+      `${countryHelper.phone.code} ${phone}`, // Adds the phone number with the country code and space
     ];
 
-    return arrPhones.filter((value, index, self) => {
+    return arrPhones.filter((value, index, self) => { // Filters out the duplicates from the array of phone numbers
       return self.indexOf(value) === index;
     }).findIndex(phone => phone === phoneWithoutCode || phone === phoneWithCode) > -1;
   }

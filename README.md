@@ -1,9 +1,13 @@
 # 188 countries + International format
+# User's phone's format for pipe
 
 ```ts
 {{ '31234567890' | phoneFormat }} <!-- +3 123 456 7890 -->
 {{ '1234567890' | phoneFormat: { iso: 'USA', prefix: true } }} // <!-- +1 (123) 456-7890 -->
 {{ '41234567890' | phoneFormat: { prefix: true } }} // <!-- +4 123 456 7890 -->
+{{ '1234567890' | phoneFormat: { prefix: true, code: '+33', format: '(XXX) XXX-XXXX' } }} // <!-- +33 (123) 456-7890 -->
+{{ '1234567890' | phoneFormat: { prefix: false, code: '+33', format: '(XXX) XXX-XXXX' } }} // <!-- (123) 456-7890 -->
+{{ '1234567890' | phoneFormat: { prefix: false, format: '(XXX) XXX-XXXX' } }} // <!-- (123) 456-7890 -->
 ```
 
 ## Setting up in `module's imports`
@@ -37,7 +41,7 @@ AngularPhoneHelperModule.forRoot({
 NOTE: Config is optional
 
 NOTE: For custom country
-Some countries have differnt format 
+Some countries have different format 
 For example: France
 codeDigit: "33", code: "+33", formatInternational: "X XX XX XX XX", format: "0X XX XX XX XX"
 X - digits
@@ -99,6 +103,9 @@ constructor(private readonly phoneFormatPipe: PhoneFormatPipe) {
 {{ '31234567890' | phoneFormat }} <!-- +3 123 456 7890 -->
 {{ '1234567890' | phoneFormat: { iso: 'USA', prefix: true } }} // <!-- +1 (123) 456-7890 -->
 {{ '41234567890' | phoneFormat: { prefix: true } }} // <!-- +4 123 456 7890 -->
+{{ '1234567890' | phoneFormat: { prefix: true, code: '+33', format: '(XXX) XXX-XXXX' } }} // <!-- +33 (123) 456-7890 -->
+{{ '1234567890' | phoneFormat: { prefix: false, code: '+33', format: '(XXX) XXX-XXXX' } }} // <!-- (123) 456-7890 -->
+{{ '1234567890' | phoneFormat: { prefix: false, format: '(XXX) XXX-XXXX' } }} // <!-- (123) 456-7890 -->
 ```
 
 ## Supported countries (in progress...)
