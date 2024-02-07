@@ -1,4 +1,4 @@
-# 188 countries + International format
+# 188 countries + International format (Angular 17)
 # User's phone's format for pipe
 
 ```ts
