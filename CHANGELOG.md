@@ -1,6 +1,12 @@
+## 1.1.2 (2024-02-07)
+- Update README
+
+## 1.1.1 (2024-02-07)
+- Update to 17.1.2 Angular version
+
 ## 1.0.1 (2023-04-30)
 - Update README.md
-- 
+
 ## 1.0.0 (2023-04-30)
 - Add custom format options for pipe
 - Update helpers
